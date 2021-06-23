@@ -1,11 +1,9 @@
-let
-  pkgs = import <nixpkgs> { };
-  inherit (pkgs) stdenv fetchFromGitHub;
-
-  node2nix = import ./default.nix { inherit pkgs; };
-  buildDeps = node2nix.nodeDependencies;
-in
-# buildDeps
+{ stdenv
+, fetchFromGitHub
+, nodejs
+, yarn
+, nodeDependencies
+}:
 stdenv.mkDerivation rec {
   pname = "marp";
   version = "1.1.1";
@@ -17,20 +15,20 @@ stdenv.mkDerivation rec {
     sha256 = "5NW8xh7Ycjg0hG9EyzyVWjYA7+TY7AL+HiPZfF1mq0k=";
   };
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     nodejs
     yarn
   ];
 
   buildPhase = ''
-    ln -s ${buildDeps}/lib/node_modules ./node_modules
-    export PATH="${buildDeps}/bin:$PATH"
+    ln -s ${nodeDependencies}/lib/node_modules ./node_modules
+    export PATH="${nodeDependencies}/bin:$PATH"
     npm run build --no-update-notifier
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    ln -s ${buildDeps}/lib/node_modules $out/bin/node_modules
+    ln -s ${nodeDependencies}/lib/node_modules $out/bin/node_modules
     cp -r lib $out/bin
     chmod +x marp-cli.js
     patchShebangs marp-cli.js
