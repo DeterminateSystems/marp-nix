@@ -3,6 +3,6 @@
 ## Usage
 
 ```console
-$ nix-build marp.nix
+$ nix build .#marp
 $ result/bin/marp --help
 ```
