@@ -23,7 +23,11 @@
         pkgs.mkShell {
           name = "marp";
 
-          buildInputs = [
+          buildInputs = with pkgs; [
+            nixpkgs-fmt
+            findutils # find, xargs
+            codespell
+          ] ++ [
             self.defaultPackage.${system}
           ];
         });
