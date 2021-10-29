@@ -2,7 +2,7 @@ name: update-flake-lock
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 0'
 
 jobs:
   lockfile:
@@ -11,4 +11,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v1
+        uses: DeterminateSystems/update-flake-lock@v4
