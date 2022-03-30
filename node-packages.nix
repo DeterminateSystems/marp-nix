@@ -2574,7 +2574,7 @@ let
       packageName = "bespoke";
       version = "1.2.0-dev";
       src = fetchgit {
-        url = "git://github.com/bespokejs/bespoke";
+        url = "https://github.com/bespokejs/bespoke";
         rev = "5dd91d76ba088119836f60f514dc0a0b8b30e78d";
         sha256 = "b7dd0872208a9ebb4b609725084a31ee71390cb7198a1b0a1816b2f88cca9023";
       };
