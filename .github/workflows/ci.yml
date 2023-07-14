@@ -8,45 +8,39 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Install  Nix
-        uses: cachix/install-nix-action@v14
-        with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.5pre20211015_130284b/install
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Enable magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Check marp builds
         run: nix build
 
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Install  Nix
-        uses: cachix/install-nix-action@v14
-        with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.5pre20211015_130284b/install
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Enable magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Check nixpkgs-fmt formatting
         run: nix-shell --run "find . -path '*.nix' ! -iname 'default.nix' ! -iname 'node-env.nix' -print0 | xargs -0 nixpkgs-fmt --check"
 
   codespell:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Install  Nix
-        uses: cachix/install-nix-action@v14
-        with:
-          install_url: https://github.com/numtide/nix-unstable-installer/releases/download/nix-2.5pre20211015_130284b/install
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Enable magic Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Check codespell
         run: nix-shell --run "find . -print0 | xargs -0 codespell --exclude-file node-packages.nix"
 
