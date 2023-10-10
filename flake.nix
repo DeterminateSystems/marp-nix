@@ -1,7 +1,7 @@
 {
   description = "marp-nix";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-21.05";
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.2105.296223.tar.gz";
 
   outputs =
     { self
